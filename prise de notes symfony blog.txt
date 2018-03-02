@@ -1,0 +1,7 @@
+On a creer un dossier Admin dans le rep controller
+puis aller dans config>routes>annotation.yaml pour définir une route pour tous les fichiers admin
+=> admin:
+        resource: ../../src/Controller/Admin 
+        type: annotation
+        prefix: /admin
+C'est pour ajouter des ressources
