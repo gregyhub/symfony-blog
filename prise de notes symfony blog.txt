@@ -5,3 +5,14 @@ puis aller dans config>routes>annotation.yaml pour définir une route pour tous 
         type: annotation
         prefix: /admin
 C'est pour ajouter des ressources
+
+
+commande > make:form CategoryType> pour ajouter un formulaire et la classe qui va avec
+=> ca créer un dossier "form" dans src avec un nouvelle class = 'CategoryType'
+
+pour creer le formulaire avec le theme bootstrap
+> dans le fichier config/package/twig.yaml => form_themes : ['bootstrap_3_layout.html.twig'] 
+
+
+commande > make:controller security (le composant symfony s'appele comme ça, mais on pourai nommer notre controller comme on veut)
+commande > make:form UserType

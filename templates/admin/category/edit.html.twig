@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+
+
+{% block content %}
+    <h1>Ajouter une Catégorie</h1>
+    {{ form_start(form) }} {# ouvre notre balise form #}
+  
+        {{ form_row(form.name) }} {# affiche le bloc input pour ce champ #}
+        <div class="form-btn-group pull-right">
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <a href="{{ path('app_admin_category_index') }}" class="btn btn-default">retour</a>
+        </div>
+    {{ form_end(form) }} {# ferme notre balise form #}
+        
+{% endblock %}

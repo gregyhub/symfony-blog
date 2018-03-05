@@ -4,6 +4,24 @@
 
 {% block content %}
     <h1>Gestion des Catégories</h1>
-    
+      <a href="{{ path('app_admin_category_edit') }}">ajouter une catégorie</a>
+    <table class="table">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>action</th>
+        </tr>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td>
+                <a class="btn btn-default" href="{{ path('app_admin_category_edit',{id:category.id}) }}">modifier</a>
+                <a class="btn btn-default" href="{{ path('app_admin_category_delete',{id:category.id}) }}">supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+  
         
 {% endblock %}

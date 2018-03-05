@@ -18,15 +18,33 @@
 {% block body %}
     <nav class="navbar navbar-inverse">
         <div class="container">
-              <a class="navbar-brand" href="{{ path('app_index_index')}}">Admin</a>
+              <a class="navbar-brand">Menu Admin</a>
+              <ul class="nav navbar-nav">
+                  <li><a href="{{ path('app_admin_category_index') }}">Gestion des Catégories</a></li>
+              </ul>
         </div><!-- /.container- -->
     </nav>
     <nav class="navbar navbar-default">
         <div class="container">
               <a class="navbar-brand" href="{{ path('app_index_index')}}">Blog</a>
+              <ul class="nav navbar-nav navbar-right">
+                  <li>
+                      <a href="{{ path('app_security_register') }}">Inscription</a>
+                  </li>
+              </ul>
         </div><!-- /.container- -->
     </nav>
     <div class="container">
+        {% for type, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+                {% if type == 'error' %}
+                    {% set type = 'danger' %}
+                {% endif %}
+                <div class="alert alert-{{ type }}">
+                {{ message|raw }}  {# raw dit que si y a du html, on l'affiche en HTML #}
+                </div>
+            {% endfor %}
+        {% endfor %}
         {% block content %}
         {% endblock %} 
     </div>
