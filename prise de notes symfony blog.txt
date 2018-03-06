@@ -16,3 +16,18 @@ pour creer le formulaire avec le theme bootstrap
 
 commande > make:controller security (le composant symfony s'appele comme ça, mais on pourai nommer notre controller comme on veut)
 commande > make:form UserType
+_______
+pour gérer la sécurité :
+dans config/packages/security.yaml >
+        encoders:
+            App\Entity\User:
+                algorithm: bcrypt
+______
+pour le login :
+dans config/packages/security.yaml >
+ providers:
+        # in_memory: { memory: ~ }  par défaut
+        db:
+            entity:
+                class: App\Entity\User
+                property: email

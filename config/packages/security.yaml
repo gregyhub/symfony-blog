@@ -1,15 +1,39 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        # in_memory: { memory: ~ }  par défaut
+        #c'est cette class qui va aller chercher les utilisateur connecter
+        db:
+            entity:
+                class: App\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            #par défaut, y a un utilisateur connecté mais anonyme
+            anonymous: true 
+            #le provider qui utilise app\entity\user
+            provider: db
+            #sur tout le site
+            pattern: ^/
+            form_login:
+                #route du formulaire d'authentification
+                login_path: app_security_login
+                #route du traitement d'authentification dans notre cas,sur la meme route
+                check_path: app_security_login
+                #route quand on se log
+                default_target_path: app_index_index
+            logout:
+                #route de la page de déco
+                path: app_security_logout
+                #redirection apres deco
+                target: app_index_index
+             
     encoders:
-            Symfony\Component\Security\Core\User\User: sha512
+            App\Entity\User:
+                algorithm: bcrypt
             # activate different ways to authenticate
 
             # http_basic: true
@@ -21,5 +45,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+       #tout ce qui commence par /admin, il faut avoir le role admin pour pouvoir y acceder
+        - { path: ^/admin, roles: ROLE_ADMIN }
+       # - { path: ^/profile, roles: ROLE_USER }

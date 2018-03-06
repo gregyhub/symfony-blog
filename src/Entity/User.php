@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity; //vérifier l'unicité d'un champ en base
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;  //nécessaire car UserInterface contiend des méthodes dont l'encodage à besoin pour bosser.
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity; //vérifier l'unicité d'un champ en base
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="cette email existe déjà")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -120,5 +121,24 @@ class User
     public function getFullName(){
         return $this->firstname. ' '.strtoupper($this->lastname);
     }
+    
+    public function eraseCredentials() {
+        //si on veut enlever une partie des droit à un user, dans cet exemple on laisse vide
+    }
+
+    public function getRoles() {
+        return array($this->role);
+    }
+
+    public function getSalt() {
+        //c'est pour l'encodage de mdp, certain systeme de cryptage ajout un "grain de sel".
+        //on laisse a vide dans cette exemple
+    }
+
+    public function getUsername(): string {
+        //UserName c'est l'identifiant de user > ici on renvoi donc l'email
+        return $this->email;
+    }
+
 }
 
