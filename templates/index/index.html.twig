@@ -3,6 +3,12 @@
 
 {% block content %}
     <h1>Accueil</h1>
+    
+    {% for article in last_articles %}
+         {% include 'article/preview.html.twig' with {"article": article} only %}
+        
+    {% endfor %}
+    
 {% endblock %}
 
 {% block javascripts %}

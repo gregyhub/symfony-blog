@@ -31,6 +31,7 @@
     <nav class="navbar navbar-default">
         <div class="container">
               <a class="navbar-brand" href="{{ path('app_index_index')}}">Blog</a>
+             {{ render(controller('App\\Controller\\CategoryController::menu')) }} 
               <ul class="nav navbar-nav navbar-right">
                   {% if app.user is null%}
                   <!-- si null, alors utilisateur n'est pas connecté -->

@@ -18,7 +18,18 @@ class ArticleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Article::class);
     }
-
+    
+    public function findLatest($limit, \App\Entity\Category $category=null){
+        $qb = $this->createQueryBuilder('a');
+        $qb ->orderBy('a.id', 'DESC')
+            ->setMaxResults($limit);
+        if(!is_null($category)){
+            //$qb->andWhere('IDENTITY(a.category) = '. $category->getId());
+            $qb ->andWhere('IDENTITY(a.category) = :category')
+                ->setParameter('category', $category->getId());
+        }
+        return $qb->getQuery()->getResult();
+    }
     /*
     public function findBySomething($value)
     {

@@ -12,6 +12,12 @@
         {{ form_row(form.description) }}
         {{ form_row(form.category) }}
         {{ form_row(form.content) }}
+        {{ form_row(form.picture) }}
+        {# {% if is not null(original_image)%} #}
+        {% if form.vars.value.picture is not null %} {# form.vars.value c'est notre entité lié au formulaire, donc l'article #}
+            <img src="{{ asset('uploads/') ~ form.vars.value.picture.filename }}" alt="">
+             {{ form_row(form.remove_image) }}
+        {% endif %}
         <div class="form-btn-group pull-right">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
             <a href="{{ path('app_admin_category_index') }}" class="btn btn-default">retour</a>

@@ -11,6 +11,7 @@
             <th>id</th>
             <th>Auteur</th>
             <th>Titre</th>
+            <th>Image</th>
             <th>Description</th>
             <th>Contenu</th>
             <th>Catégorie</th>
@@ -19,11 +20,15 @@
    {% for article in articles %}
        <tr>
             <td>{{ article.id }}</td>
-            <td>{{ article.author.fullname }}</td>
+           {# <td>{{ article.author.fullname }}</td> #}
+            <td>{{ article.author }}</td>
             <td>{{ article.title }}</td>
+            <td><img class="thumbnail" src="{{ asset('uploads/') ~ article.picture }}" alt=""></td>
             <td>{{ article.description }}</td>
             <td>{{ article.content }}</td>
-            <td>{{ article.category.name }}</td>
+            {# grace à la méthode magique __tostring(), on peut afficher directement en appelant l'objet #}
+            {# <td>{{ article.category.name }}</td>  #}
+            <td>{{ article.category }}</td> 
             <td>
                 <a href="{{ path('app_admin_article_edit', {"id":article.id}) }}" class="btn btn-primary">Modifier</a>
                 <a href="{{ path('app_admin_article_delete', {"id":article.id}) }}" class="btn btn-warning">Supprimer</a>

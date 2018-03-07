@@ -40,7 +40,7 @@ class Article
     private $description;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Category") //many articl pour one category
+     * @ORM\ManyToOne(targetEntity="Category", fetch="EAGER") //many articl pour one category //fetch EAGER = force doctrine à récupérer la catégory dans la foulé, sinon il chargé par une requete au moment de l'affichage du name -> evite donc le LAZY Loading
      * @ORM\JoinColumn(nullable=false) //on peut présiser le champ de référence dans la table target, mais par défaut c'est id, et les cascad aussi.
      * @Assert\NotBlank()
      * @var Category
@@ -54,6 +54,14 @@ class Article
      */
     private $author;
     
+    /**
+     * @ORM\Column(nullable=true)
+     * @Assert\Image()
+     * @var
+     */
+    private $picture;
+
+
     public function getId() {
         return $this->id;
     }
@@ -102,6 +110,15 @@ class Article
         $this->author = $author;
         return $this;
     }
+    public function getPicture() {
+        return $this->picture;
+    }
+
+    public function setPicture($picture) {
+        $this->picture = $picture;
+        return $this;
+    }
+
 
 
 }

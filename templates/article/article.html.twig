@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block content %}
+ <h1>{{ article.title }}</h1>
+        <article class="">
+            {% if article.picture is not null %}
+                <img src="{{ asset('uploads/' ~ article.picture) }}" alt="">
+                {% endif %}
+            <h3>par {{ article.author}} dans <a href="{{ path('app_category_index',{id:article.category.getId}) }}">{{ article.category }}</a></h3>
+            <div class="">{{ article.description}}</div>  
+            <div class="well">{{ article.content}}</div>    
+        </article>
+      
+{% endblock %}
